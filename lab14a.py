@@ -33,29 +33,28 @@ def extract_signal(carrier_frequency, signal):
     def calc_factor(x):
         return np.cos(omega * x * dt)
 
-    tvn = numpy.arange(n)
-    tvb = calc_factor(tvn)
-    tv = tvb * signal
+    index_array = numpy.arange(n)
+    cosine_factors = calc_factor(index_array)
+    multiplied_signal = cosine_factors * signal
 
     if show_plots == True:
-        plt.plot(tvn[:pn], signal[:pn], tvn[:pn], tvb[:pn], tvn[:pn], tv[:pn])
+        plt.plot(index_array[:pn], signal[:pn], index_array[:pn], cosine_factors[:pn], index_array[:pn], multiplied_signal[:pn])
         plt.show()
 
-    dtv = fft(tv)
+    signal_fft = fft(multiplied_signal)
 
     if show_plots == True:
-        plt.plot(numpy.real(dtv))
+        plt.plot(numpy.real(signal_fft))
         plt.show()
 
     print("Zeroing entries after the first {0}.".format(cutoff))
-    trunc = dtv
-    trunc[cutoff:] = 0
-    trunc[0] = 0    # remove bias as well.
+    signal_fft[cutoff:] = 0
+    signal_fft[0] = 0    # remove bias as well.
 
-    mod = ifft(dtv)
-    mod = numpy.real(mod)
+    modified_signal = ifft(signal_fft)
+    modified_signal = numpy.real(modified_signal)
 
-    return mod
+    return modified_signal
 
 def wave_from_signal(source):
 
@@ -66,13 +65,13 @@ def wave_from_signal(source):
         plt.show()
 
 
-    smax = numpy.amax(subsampled)
-    smin = numpy.amin(subsampled)
+    max_value = numpy.amax(subsampled)
+    min_value = numpy.amin(subsampled)
 
-    def renorm(x):
-        return 2 * (x - smin) / (smax - smin) - 1
+    def renormalize(x):
+        return 2 * (x - min_value) / (max_value - min_value) - 1
 
-    subsampled = renorm(subsampled)
+    subsampled = renormalize(subsampled)
 
     return subsampled
 
