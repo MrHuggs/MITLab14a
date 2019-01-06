@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/lab14a/v15/.suo
+/signal.pkl
+/song0.wav
+/__pycache__/wav_utils.cpython-36.pyc

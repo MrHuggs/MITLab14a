@@ -15,7 +15,7 @@ n = len(signal)
 seconds = int(n / rate)
 sample_rate = 44100
 interleave = int(rate / sample_rate)
-max_frequency = 5000    # We are told the signals in the the range 0-5Khz
+max_frequency = 5000    # We are told the signal is in the the range 0-5Khz
 cutoff = int(seconds * max_frequency)
 
 # Helper parameters for plotting:

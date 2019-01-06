@@ -25,7 +25,7 @@ def write_wav():
 
     wav_write(wav, sample_rate, "out.wav")
 
-
+# Modulate a 1khz tone into a carrier wave:
 def write_test():
     f = 1000
     omega = (610e+3) * 2 * numpy.pi
